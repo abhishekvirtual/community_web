@@ -36,6 +36,15 @@ module.exports = {
           exclude:/(node_modules|bower_components)/,
           loader: 'ts-loader',
       },
+       {
+        test: /\.html$/,
+        use: [ {
+          loader: 'html-loader',
+          options: {
+            minimize: true
+          }
+        }],
+       }
       ]
     },
     externals:nodeModules

@@ -6,22 +6,23 @@ import * as express from 'express';
 import * as helmet from 'helmet';
 import * as mongoose from 'mongoose';
 import * as logger from 'morgan';
-import * as router from './router';
+import * as Router from './router/router';
 import * as evnconf from 'dotenv';
+import * as path from 'path'
 
-import { PostController } from './controllers/PostController';
-import { UserController } from './controllers/UserController';
+import { PostController } from './controllers/api/post/postController';
+import { UserController } from './controllers/api/user/userController';
 
 const postRouter = new PostController();
 const userRouter = new UserController();
 
+
 class Server {
   public app: express.Application;
-
   constructor() {
     this.app = express();
     this.config();
-    this.routes();
+    this.initRoutes();
   }
 
   public config(): void {
@@ -51,12 +52,15 @@ class Server {
     });
   }
 
-  public routes(): void {
-    // const router: express.Router = express.Router();
-    // this.app.use('/', router);
-    // this.app.use('/posts',  postRouter.router);
-    // this.app.use('/users', userRouter.router);
-  }
+  public initRoutes() {
+    let folder_path:string = './controllers';
+
+    Router.routes.load(this.app,folder_path);
+    // redirect all others to the index (HTML5 history)
+    this.app.all('/*', (req, res) => {
+        res.sendFile(__dirname + '/public/index.html');
+    });
+}
 }
 
 export default new Server().app;

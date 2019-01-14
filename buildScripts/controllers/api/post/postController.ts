@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import { Post } from '../models/post';
+import { Post } from '../../../models/post';
 
-export class PostController {
+ class PostController {
   public router: Router;
 
   constructor() {
@@ -104,3 +104,5 @@ export class PostController {
     this.router.delete('/:slug', this.delete);
   }
 }
+
+export {PostController}
