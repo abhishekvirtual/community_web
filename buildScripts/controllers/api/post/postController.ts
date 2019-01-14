@@ -105,4 +105,4 @@ import { Post } from '../../../models/post';
   }
 }
 
-export {PostController}
+export default {PostController}

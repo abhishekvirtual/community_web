@@ -37,12 +37,16 @@ export class Router {
               //Generate the route
               const baseRoute = '/' + dirs.join('/');
 
-            
+
               console.log('Created route: ' + baseRoute + ' for ' + fullName);
 
               //Load the JavaScript file ("controller") and pass the router to it
-              const controllerClass = require(fullName);
+              const controllerClass = require("../controllers/api/post/postController");
+
+
+
               const controller = new controllerClass(router);
+              console.log(controller);
               //Associate the route with the router
               app.use(baseRoute, router);
           }

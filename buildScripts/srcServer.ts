@@ -10,11 +10,6 @@ import * as Router from './router/router';
 import * as evnconf from 'dotenv';
 import * as path from 'path'
 
-import { PostController } from './controllers/api/post/postController';
-import { UserController } from './controllers/api/user/userController';
-
-const postRouter = new PostController();
-const userRouter = new UserController();
 
 
 class Server {
@@ -53,12 +48,11 @@ class Server {
   }
 
   public initRoutes() {
-    let folder_path:string = './controllers';
-
+    let folder_path:string =path.resolve('buildScripts/controllers');
     Router.routes.load(this.app,folder_path);
     // redirect all others to the index (HTML5 history)
     this.app.all('/*', (req, res) => {
-        res.sendFile(__dirname + '/public/index.html');
+        res.sendFile(path.resolve('buildscripts/public/index.html'));
     });
 }
 }
